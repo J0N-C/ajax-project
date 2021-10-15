@@ -1,0 +1,50 @@
+a,
+button,
+h2 {
+  text-align: center;
+  font-family: 'Poppins', sans-serif;
+  color: #fff;
+}
+
+h1 {
+  font-size: 175%;
+  padding: 0.5rem;
+}
+
+h2 {
+  color: #292929;
+}
+
+p {
+  font-family: 'Raleway', sans-serif;
+  color: #292929;
+  padding: 1rem 0;
+}
+
+main,
+footer {
+  padding: 1rem 2rem;
+}
+
+button {
+  font-size: 125%;
+  border: none;
+  padding: 0.25rem 1rem;
+  border-radius: 6px;
+}
+
+.sidebar {
+  padding: 1rem;
+}
+
+.darkgray {
+  background: #8c9faa;
+}
+
+.lightgray {
+  background: #e1e5ea;
+}
+
+.light-cream {
+  background: #faf3f3;
+}

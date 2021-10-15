@@ -1,0 +1,45 @@
+.hidden {
+  display: none !important;
+}
+
+a:hover,
+button:hover {
+  cursor: pointer;
+}
+
+.flex {
+  width: 100%;
+  display: flex;
+}
+
+.row {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.column-full,
+.column-sidebar {
+  width: 100%;
+}
+
+.columnt-third {
+  width: 33%;
+}
+
+.just-cent {
+  justify-content: center;
+}
+
+.spce-even {
+  justify-content: space-evenly;
+}
+
+@media screen and (min-width: 768px) {
+  .container {
+    max-width: 900px;
+  }
+
+  .column-sidebar {
+    width: 30%;
+  }
+}
