@@ -15,13 +15,16 @@ h2 {
   color: #292929;
 }
 
+main {
+  flex: 1;
+}
+
 p {
   font-family: 'Raleway', sans-serif;
   color: #292929;
   padding: 1rem 0;
 }
 
-main,
 footer {
   padding: 1rem 2rem;
 }
@@ -34,7 +37,7 @@ button {
 }
 
 .sidebar {
-  padding: 1rem;
+  padding: 1rem 2rem;
 }
 
 .darkgray {
@@ -47,4 +50,6 @@ button {
 
 .light-cream {
   background: #faf3f3;
+  height: 100%;
+  padding: 1rem 2rem;
 }

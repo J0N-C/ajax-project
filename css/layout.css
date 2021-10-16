@@ -7,18 +7,27 @@ button:hover {
   cursor: pointer;
 }
 
+body {
+  min-height: 100vh;
+}
+
 .flex {
   width: 100%;
   display: flex;
 }
 
+.fill-col {
+  flex: 1;
+}
+
 .row {
   display: flex;
   flex-wrap: wrap;
+  flex-direction: column;
 }
 
 .column-full,
-.column-sidebar {
+.sidebar {
   width: 100%;
 }
 
@@ -30,16 +39,24 @@ button:hover {
   justify-content: center;
 }
 
-.spce-even {
-  justify-content: space-evenly;
+.spce-btwn {
+  justify-content: space-between;
 }
 
 @media screen and (min-width: 768px) {
+  .fill-col {
+    width: 70%;
+  }
+
   .container {
     max-width: 900px;
   }
 
-  .column-sidebar {
+  .sidebar {
     width: 30%;
+  }
+
+  #footer-active {
+    display: none;
   }
 }
