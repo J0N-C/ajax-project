@@ -38,6 +38,7 @@ button {
   border: none;
   padding: 0.25rem 1rem;
   border-radius: 6px;
+  margin-top: 1rem;
 }
 
 .sidebar {

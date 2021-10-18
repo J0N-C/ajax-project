@@ -1,5 +1,5 @@
 .hidden {
-  display: none !important;
+  display: none;
 }
 
 a:hover,
@@ -35,7 +35,7 @@ body {
   width: 33%;
 }
 
-.just-cent {
+.just-sidebar {
   justify-content: center;
 }
 
@@ -52,12 +52,20 @@ body {
     max-width: 900px;
   }
 
+  .just-sidebar {
+    justify-content: flex-start;
+  }
+
   .sidebar {
     width: 30%;
   }
 
   #footer-active {
     display: none;
+  }
+
+  #sidebar-active {
+    display: block;
   }
 
   .main-row {
