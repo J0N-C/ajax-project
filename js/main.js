@@ -1,10 +1,22 @@
 const $dailyFact = document.querySelector('#daily-fact');
 const $currentDate = document.querySelector('#current-date');
+const $getNewFact = document.querySelector('#new-fact');
 const factRequest = new XMLHttpRequest();
 var today = dateToday();
 var factToday;
-
 getFact(today);
+
+factRequest.addEventListener('load', function () {
+  factToday = JSON.parse(factRequest.response);
+  if ($dailyFact.textContent === factToday.text) {
+    return getFact(today);
+  }
+  $dailyFact.textContent = factToday.text;
+});
+
+$getNewFact.addEventListener('click', function () {
+  getFact(today);
+});
 
 function dateToday() {
   const fullDate = [];
@@ -26,8 +38,3 @@ function getFact(date) {
   factRequest.open('GET', `http://numbersapi.com/${month}/${day}/date?json`);
   factRequest.send();
 }
-
-factRequest.addEventListener('load', function () {
-  factToday = JSON.parse(factRequest.response);
-  $dailyFact.textContent = factToday.text;
-});
