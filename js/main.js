@@ -1,3 +1,4 @@
+const monthNames = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'September', 'October', 'November', 'Decemter'];
 const $dailyFact = document.querySelector('#daily-fact');
 const $currentDate = document.querySelector('#current-date');
 const $getNewFact = document.querySelector('#new-fact');
@@ -26,15 +27,10 @@ function dateToday() {
   return fullDate;
 }
 
-function monthsFormat(monthNum) {
-  const monthNames = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'September', 'October', 'November', 'Decemter'];
-  return monthNames[monthNum - 1];
-}
-
 function getFact(date) {
   const month = date[0];
   const day = date[1];
-  $currentDate.textContent = `${monthsFormat(month - 1)} ${day}`;
+  $currentDate.textContent = `${monthNames[month - 1]} ${day}`;
   factRequest.open('GET', `http://numbersapi.com/${month}/${day}/date?json`);
   factRequest.send();
 }
