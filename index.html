@@ -5,15 +5,44 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>AJAX Project</title>
   <link rel="icon" href="images/favicon.ico">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300&family=Raleway:wght@300&display=swap"
+    rel="stylesheet">
   <link rel="stylesheet" href="css/reset.css">
   <link rel="stylesheet" href="css/layout.css">
   <link rel="stylesheet" href="css/styles.css">
 </head>
-<body>
-  <header>
+<body class="row">
+  <header class="column-full">
+    <div class="darkgray">
+      <a>
+        <h1>previously today...</h1>
+      </a>
+    </div>
   </header>
-  <main>
+
+  <main class="column-full row main-row">
+    <div class="lightgray sidebar row just-sidebar">
+      <h2 id="date-label" class="column-full">TODAY'S DATE</h2>
+      <h2 id="current-date" class="column-full"> </h2>
+      <button class="darkgray">VIEW ANOTHER DATE</button>
+      <button id="sidebar-active" class="darkgray hidden footer">VIEW CALENDAR OF FACTS</button>
+    </div>
+
+    <div class="light-cream column-full fill-col">
+      <p id="daily-fact"> </p>
+      <div class="flex spce-btwn">
+        <button class="darkgray column-third">SAVE FACT</button>
+        <button class="darkgray column-third">NEW FACT</button>
+      </div>
+    </div>
   </main>
+
+  <footer id="footer-active" class="lightgray row just-cent">
+    <button class="darkgray footer">VIEW CALENDAR OF FACTS</button>
+  </footer>
+
   <script src="js/data.js"></script>
   <script src="js/main.js"></script>
 </body>

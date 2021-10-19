@@ -1,0 +1,60 @@
+a,
+button,
+h2 {
+  text-align: center;
+  font-family: 'Poppins', sans-serif;
+  color: #fff;
+}
+
+h1 {
+  font-size: 175%;
+  padding: 0.5rem;
+}
+
+h2 {
+  color: #292929;
+}
+
+header {
+  height: 100%;
+}
+
+main {
+  flex: 1;
+}
+
+p {
+  font-size: 125%;
+  font-family: 'Raleway', sans-serif;
+  color: #292929;
+  padding: 1rem 0;
+}
+
+footer {
+  padding: 1rem 2rem;
+}
+
+button {
+  font-size: 125%;
+  border: none;
+  padding: 0.25rem 1rem;
+  border-radius: 6px;
+  margin-top: 1rem;
+}
+
+.sidebar {
+  padding: 1rem 2rem;
+}
+
+.darkgray {
+  background: #8c9faa;
+}
+
+.lightgray {
+  background: #e1e5ea;
+}
+
+.light-cream {
+  background: #faf3f3;
+  padding: 1rem 2rem;
+}
