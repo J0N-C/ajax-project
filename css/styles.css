@@ -55,7 +55,7 @@ select {
   text-align: center;
 }
 
-#date-modal {
+.modal {
   display: flex;
   background-color: rgba(53, 53, 53, 0.479);
   width: 100%;

@@ -2,9 +2,14 @@ const monthNames = ['January', 'February', 'March', 'April', 'May', 'June', 'Jul
 const $dailyFact = document.querySelector('#daily-fact');
 const $currentDate = document.querySelector('#current-date');
 const $getNewFact = document.querySelector('#new-fact');
+const $dateModal = document.querySelector('#date-modal');
 const $monthSelector = document.querySelector('#month-select');
 const $daySelector = document.querySelector('#day-select');
+const $viewNewDate = document.querySelector('#view-new-date');
+
+const $closeDateSelect = document.querySelector('#close-date-select');
 const factRequest = new XMLHttpRequest();
+var getLimit = 0;
 var today = dateToday();
 var factToday;
 getFact(today);
@@ -12,14 +17,25 @@ populateDays(31);
 
 factRequest.addEventListener('load', function () {
   factToday = JSON.parse(factRequest.response);
-  if ($dailyFact.textContent === factToday.text) {
+  if ($dailyFact.textContent === factToday.text && getLimit < 4) {
+    getLimit++;
     return getFact(today);
   }
   $dailyFact.textContent = factToday.text;
+  getLimit = 0;
 });
 
 $getNewFact.addEventListener('click', function () {
   getFact(today);
+});
+
+$viewNewDate.addEventListener('click', function (event) {
+  $dateModal.className = 'modal';
+});
+
+$closeDateSelect.addEventListener('click', function (event) {
+  event.preventDefault();
+  $dateModal.className = 'hidden';
 });
 
 function populateDays(days) {

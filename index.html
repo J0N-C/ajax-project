@@ -15,8 +15,8 @@
 </head>
 <body class="row">
 
-  <div id="date-modal">
-    <div class="light-cream popup">
+  <div id="date-modal" class="modal">
+    <form class="light-cream popup" id="date-select">
       <div class="lightgray popup">
         <label class="row">VIEW NEW DATE</label>
         <select id="month-select" class="column-third">
@@ -36,9 +36,9 @@
         <select id="day-select" class="column-third">
         </select>
       </div>
-      <button id="view-new-date" class="darkgray">VIEW SELECTED DATE</button>
-      <button class="red">CANCEL</button>
-    </div>
+      <button id="submit-new-date" form="date-select" class="darkgray" type="submit">VIEW SELECTED DATE</button>
+      <button id="close-date-select" class="red">CANCEL</button>
+    </form>
   </div>
 
   <header class="column-full">
@@ -53,7 +53,7 @@
     <div class="lightgray sidebar row just-sidebar">
       <h2 id="date-label" class="column-full">TODAY'S DATE</h2>
       <h2 id="current-date" class="column-full"> </h2>
-      <button class="darkgray">VIEW ANOTHER DATE</button>
+      <button class="darkgray" id="view-new-date">VIEW ANOTHER DATE</button>
       <button id="sidebar-active" class="darkgray hidden footer">VIEW CALENDAR OF FACTS</button>
     </div>
 
