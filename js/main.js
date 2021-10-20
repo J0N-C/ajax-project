@@ -29,7 +29,11 @@ factRequest.addEventListener('load', function () {
 
 /* generate new fact */
 $getNewFact.addEventListener('click', function () {
-  getFact(today);
+  if (otherDate[0] === null) {
+    getFact(today);
+  } else {
+    getFact(otherDate);
+  }
 });
 
 /* open view new date modal, auto populate selection with today */
