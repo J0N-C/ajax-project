@@ -16,6 +16,7 @@ var otherDate = [null, null];
 var factToday;
 getFact(today);
 
+/* listener for loading fact, if fact is the same, retry loading up to 3 times */
 factRequest.addEventListener('load', function () {
   factToday = JSON.parse(factRequest.response);
   if ($dailyFact.textContent === factToday.text && getLimit < 4) {
@@ -26,10 +27,12 @@ factRequest.addEventListener('load', function () {
   getLimit = 0;
 });
 
+/* generate new fact */
 $getNewFact.addEventListener('click', function () {
   getFact(today);
 });
 
+/* open view new date modal, auto populate selection with today */
 $viewNewDate.addEventListener('click', function (event) {
   $dateModal.className = 'modal';
   for (let i = 0; i < $monthSelector.children.length; i++) {
@@ -45,6 +48,7 @@ $viewNewDate.addEventListener('click', function (event) {
   }
 });
 
+/* submit new date for new fact of day */
 $submitNewDate.addEventListener('click', function (event) {
   event.preventDefault();
   otherDate[0] = parseInt($monthSelector.value);
@@ -57,9 +61,15 @@ $submitNewDate.addEventListener('click', function (event) {
   getFact(otherDate);
 });
 
+/* cancel and close new date modal */
 $closeDateSelect.addEventListener('click', function (event) {
   event.preventDefault();
   $dateModal.className = 'hidden';
+});
+
+/* auto populate date selector days with days of month */
+$monthSelector.addEventListener('change', function (event) {
+  populateDays(checkDaysInMonth(parseInt($monthSelector.value)));
 });
 
 function checkDaysInMonth(value) {
@@ -104,10 +114,6 @@ function populateDays(days) {
     }
   }
 }
-
-$monthSelector.addEventListener('change', function (event) {
-  populateDays(checkDaysInMonth(parseInt($monthSelector.value)));
-});
 
 function dateToday() {
   const fullDate = [];
