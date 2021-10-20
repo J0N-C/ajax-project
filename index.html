@@ -14,9 +14,36 @@
   <link rel="stylesheet" href="css/styles.css">
 </head>
 <body class="row">
+
+  <div id="date-modal" class="hidden">
+    <form class="light-cream popup" id="date-select">
+      <div class="lightgray popup">
+        <label class="row">VIEW NEW DATE</label>
+        <select id="month-select" class="column-third">
+          <option value="1">Jan.</option>
+          <option value="2">Feb.</option>
+          <option value="3">Mar.</option>
+          <option value="4">Apr.</option>
+          <option value="5">May</option>
+          <option value="6">Jun.</option>
+          <option value="7">Jul.</option>
+          <option value="8">Aug.</option>
+          <option value="9">Sept.</option>
+          <option value="10">Oct.</option>
+          <option value="11">Nov.</option>
+          <option value="12">Dec.</option>
+        </select>
+        <select id="day-select" class="column-third">
+        </select>
+      </div>
+      <button id="submit-new-date" form="date-select" class="darkgray" type="submit">VIEW SELECTED DATE</button>
+      <button id="close-date-select" class="red">CANCEL</button>
+    </form>
+  </div>
+
   <header class="column-full">
     <div class="darkgray">
-      <a>
+      <a href="index.html">
         <h1>previously today...</h1>
       </a>
     </div>
@@ -26,15 +53,15 @@
     <div class="lightgray sidebar row just-sidebar">
       <h2 id="date-label" class="column-full">TODAY'S DATE</h2>
       <h2 id="current-date" class="column-full"> </h2>
-      <button class="darkgray">VIEW ANOTHER DATE</button>
+      <button class="darkgray" id="view-new-date">VIEW ANOTHER DATE</button>
       <button id="sidebar-active" class="darkgray hidden footer">VIEW CALENDAR OF FACTS</button>
     </div>
 
     <div class="light-cream column-full fill-col">
       <p id="daily-fact"> </p>
       <div class="flex spce-btwn">
-        <button class="darkgray column-third">SAVE FACT</button>
-        <button id="new-fact" class="darkgray column-third">NEW FACT</button>
+        <button class="darkgray">SAVE FACT</button>
+        <button id="new-fact" class="darkgray">NEW FACT</button>
       </div>
     </div>
   </main>
