@@ -12,7 +12,7 @@ const $closeDateSelect = document.querySelector('#close-date-select');
 const factRequest = new XMLHttpRequest();
 var getLimit = 0;
 var today = dateToday();
-var otherDate = [null, null];
+var otherDate = [...today];
 var factToday;
 getFact(today);
 
@@ -21,7 +21,7 @@ factRequest.addEventListener('load', function () {
   factToday = JSON.parse(factRequest.response);
   if ($dailyFact.textContent === factToday.text && getLimit < 4) {
     getLimit++;
-    return getFact(today);
+    return getFact(otherDate);
   }
   $dailyFact.textContent = factToday.text;
   getLimit = 0;
@@ -29,11 +29,7 @@ factRequest.addEventListener('load', function () {
 
 /* generate new fact */
 $getNewFact.addEventListener('click', function () {
-  if (otherDate[0] === null) {
-    getFact(today);
-  } else {
-    getFact(otherDate);
-  }
+  getFact(otherDate);
 });
 
 /* open view new date modal, auto populate selection with today */
