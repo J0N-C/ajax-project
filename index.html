@@ -14,6 +14,33 @@
   <link rel="stylesheet" href="css/styles.css">
 </head>
 <body class="row">
+
+  <div id="date-modal">
+    <div class="light-cream popup">
+      <div class="lightgray popup">
+        <label class="row">VIEW NEW DATE</label>
+        <select id="month-select" class="column-third">
+          <option value="1">Jan.</option>
+          <option value="2">Feb.</option>
+          <option value="3">Mar.</option>
+          <option value="4">Apr.</option>
+          <option value="5">May</option>
+          <option value="6">Jun.</option>
+          <option value="7">Jul.</option>
+          <option value="8">Aug.</option>
+          <option value="9">Sept.</option>
+          <option value="10">Oct.</option>
+          <option value="11">Nov.</option>
+          <option value="12">Dec.</option>
+        </select>
+        <select id="day-select" class="column-third">
+        </select>
+      </div>
+      <button id="view-new-date" class="darkgray">VIEW SELECTED DATE</button>
+      <button class="red">CANCEL</button>
+    </div>
+  </div>
+
   <header class="column-full">
     <div class="darkgray">
       <a>
@@ -33,8 +60,8 @@
     <div class="light-cream column-full fill-col">
       <p id="daily-fact"> </p>
       <div class="flex spce-btwn">
-        <button class="darkgray column-third">SAVE FACT</button>
-        <button id="new-fact" class="darkgray column-third">NEW FACT</button>
+        <button class="darkgray">SAVE FACT</button>
+        <button id="new-fact" class="darkgray">NEW FACT</button>
       </div>
     </div>
   </main>
