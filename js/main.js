@@ -1,14 +1,18 @@
+/* global savedFacts */
+/* imported savedFacts */
 const monthNames = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'Decemter'];
 const $dailyFact = document.querySelector('#daily-fact');
 const $dateLabel = document.querySelector('#date-label');
 const $currentDate = document.querySelector('#current-date');
 const $getNewFact = document.querySelector('#new-fact');
+const $saveFact = document.querySelector('#save-fact');
 const $dateModal = document.querySelector('#date-modal');
 const $monthSelector = document.querySelector('#month-select');
 const $daySelector = document.querySelector('#day-select');
 const $viewNewDate = document.querySelector('#view-new-date');
 const $submitNewDate = document.querySelector('#submit-new-date');
 const $closeDateSelect = document.querySelector('#close-date-select');
+const $saveNotify = document.querySelector('#save-notify');
 const factRequest = new XMLHttpRequest();
 var getLimit = 0;
 var today = dateToday();
@@ -29,6 +33,7 @@ factRequest.addEventListener('load', function () {
 
 /* generate new fact */
 $getNewFact.addEventListener('click', function () {
+  $saveNotify.className = 'hidden';
   getFact(otherDate);
 });
 
@@ -58,6 +63,7 @@ $submitNewDate.addEventListener('click', function (event) {
   if (otherDate[0] === today[0] && otherDate[1] === today[1]) {
     $dateLabel.textContent = 'TODAY\'S DATE';
   }
+  $saveNotify.className = 'hidden';
   getFact(otherDate);
 });
 
@@ -71,6 +77,28 @@ $closeDateSelect.addEventListener('click', function (event) {
 $monthSelector.addEventListener('change', function (event) {
   populateDays(checkDaysInMonth(parseInt($monthSelector.value)));
 });
+
+/* save fact */
+$saveFact.addEventListener('click', function (event) {
+  saveCurrentFact();
+});
+
+/* entry objects format: savedFacts: {10: {1: {year: text, year:text}, 2: {year: text}}, 11: {}} */
+function saveCurrentFact() {
+  const year = factToday.year;
+  const month = otherDate[0];
+  const day = otherDate[1];
+  if (savedFacts[month] === undefined) {
+    savedFacts[month] = {};
+  }
+  if (savedFacts[month][day] === undefined) {
+    savedFacts[month][day] = {};
+  }
+  if (savedFacts[month][day][year] === undefined) {
+    savedFacts[month][day][year] = factToday.text;
+  }
+  $saveNotify.className = '';
+}
 
 function checkDaysInMonth(value) {
   let dayCount;

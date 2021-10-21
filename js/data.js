@@ -1,6 +1,6 @@
-/* exported data */
+/* exported savedFacts */
 var savedFacts = {
-  entries: []
+
 };
 
 window.addEventListener('beforeunload', function (event) {
