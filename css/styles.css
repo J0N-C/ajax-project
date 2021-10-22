@@ -40,8 +40,11 @@ ul {
 
 p,
 li {
-  font-size: 150%;
   font-family: 'Raleway', sans-serif;
+}
+
+p {
+  font-size: 150%;
   color: #292929;
   padding: 0.5rem 0;
 }
@@ -87,6 +90,7 @@ select {
 
 .list-divider {
   padding-top: 1rem;
+  font-size: 160%;
 }
 
 .modal {

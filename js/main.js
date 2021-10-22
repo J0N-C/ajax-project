@@ -232,9 +232,17 @@ function loadFacts(monthNum) {
     $factList.appendChild(newListDay);
     const years = Object.keys(savedFacts[monthNum][i]);
     for (let j = 0; j < years.length; j++) {
-      const newListItem = document.createElement('li');
-      newListItem.textContent = savedFacts[monthNum][i][years[j]];
-      $factList.appendChild(newListItem);
+      const $newListItem = document.createElement('li');
+      $newListItem.className = 'flex';
+      const $newListText = document.createElement('p');
+      $newListText.textContent = savedFacts[monthNum][i][years[j]];
+      $newListItem.appendChild($newListText);
+      $factList.appendChild($newListItem);
+      const $newDeleteButton = document.createElement('button');
+      $newDeleteButton.textContent = 'DELETE FACT';
+      $newDeleteButton.className = 'red';
+      $newListItem.appendChild($newDeleteButton);
     }
   }
 }
+/* <button id="close-date-select" class="red">CANCEL</button> */
