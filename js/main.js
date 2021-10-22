@@ -14,7 +14,7 @@ const $submitNewDate = document.querySelector('#submit-new-date');
 const $closeDateSelect = document.querySelector('#close-date-select');
 const $saveNotify = document.querySelector('#save-notify');
 const $calendarLabel = document.querySelector('#calendar-label');
-
+const $calendarMonths = document.querySelector('#calendar-months');
 const $mainDailyFact = document.querySelector('#main-daily-fact');
 const $calendarList = document.querySelector('#calendar-list');
 const $sidebarActiveButton = document.querySelector('#sidebar-active');
@@ -182,6 +182,7 @@ function switchViewCalendar() {
     $currentDate.classList.add('hidden');
     $viewNewDate.classList.add('hidden');
     $calendarLabel.classList.remove('hidden');
+    $calendarMonths.classList.remove('hidden');
     $calendarList.classList.remove('hidden');
     $sidebarActiveButton.textContent = 'BACK TO DAILY FACT';
     $footerActive.querySelector('button').textContent = 'BACK TO DAILY FACT';
@@ -192,6 +193,7 @@ function switchViewCalendar() {
     $currentDate.classList.remove('hidden');
     $viewNewDate.classList.remove('hidden');
     $calendarLabel.classList.add('hidden');
+    $calendarMonths.classList.add('hidden');
     $calendarList.classList.add('hidden');
     $sidebarActiveButton.textContent = 'VIEW CALENDAR OF FACTS';
     $footerActive.querySelector('button').textContent = 'VIEW CALENDAR OF FACTS';

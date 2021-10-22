@@ -59,6 +59,26 @@ select {
   text-align: center;
 }
 
+.popup > button {
+  width: 100%;
+}
+
+#calendar-months button {
+  width: 30%;
+  font-size: 100%;
+  border: none;
+  padding: 0.25rem 0.5rem;
+  border-radius: 20px;
+  margin-top: 1rem;
+  background-color: #fff;
+  color: #292929;
+}
+
+#calendar-months button.selected {
+  background-color: #8c9faa;
+  color: #fff;
+}
+
 .modal {
   display: flex;
   background-color: rgba(53, 53, 53, 0.479);
@@ -78,10 +98,6 @@ select {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-evenly;
-}
-
-.popup > button {
-  width: 100%;
 }
 
 .sidebar {
