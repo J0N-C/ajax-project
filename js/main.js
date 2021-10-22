@@ -108,7 +108,6 @@ $calendarMonths.addEventListener('click', function (event) {
   event.target.className = 'selected';
   const monthName = event.target.textContent;
   const monthNum = (monthNames.indexOf(monthName) + 1);
-  $calendarList.querySelector('h2').textContent = `SAVED FACTS FOR ${monthName}`;
   loadFacts(monthNum);
 });
 
@@ -201,6 +200,11 @@ function switchViewCalendar() {
     $sidebarActiveButton.textContent = 'BACK TO DAILY FACT';
     $footerActive.querySelector('button').textContent = 'BACK TO DAILY FACT';
     viewingHomePage = false;
+    for (let i = 0; i < $calendarMonths.children.length; i++) {
+      $calendarMonths.children[i].className = '';
+    }
+    $calendarMonths.children[(today[0] - 1)].className = 'selected';
+    loadFacts(today[0]);
   } else {
     $mainDailyFact.classList.remove('hidden');
     $dateLabel.classList.remove('hidden');
@@ -217,6 +221,7 @@ function switchViewCalendar() {
 
 function loadFacts(monthNum) {
   $factList.textContent = '';
+  $calendarList.querySelector('h2').textContent = `SAVED FACTS FOR ${monthNames[(monthNum - 1)]}`;
   if (savedFacts[monthNum] === undefined) return;
   const dayCount = checkDaysInMonth(monthNum);
   for (let i = 1; i <= dayCount; i++) {
