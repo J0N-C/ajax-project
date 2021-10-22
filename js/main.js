@@ -1,6 +1,6 @@
 /* global savedFacts */
 /* imported savedFacts */
-const monthNames = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'Decemter'];
+const monthNames = ['JANUARY', 'FEBRUARY', 'MARCH', 'APRIL', 'MAY', 'JUNE', 'JULY', 'AUGUST', 'SEPTEMBER', 'OCTOBER', 'NOVEMBER', 'DECEMBER'];
 const $dailyFact = document.querySelector('#daily-fact');
 const $dateLabel = document.querySelector('#date-label');
 const $currentDate = document.querySelector('#current-date');
@@ -13,8 +13,16 @@ const $viewNewDate = document.querySelector('#view-new-date');
 const $submitNewDate = document.querySelector('#submit-new-date');
 const $closeDateSelect = document.querySelector('#close-date-select');
 const $saveNotify = document.querySelector('#save-notify');
+const $calendarLabel = document.querySelector('#calendar-label');
+const $calendarMonths = document.querySelector('#calendar-months');
+const $mainDailyFact = document.querySelector('#main-daily-fact');
+const $calendarList = document.querySelector('#calendar-list');
+const $sidebarActiveButton = document.querySelector('#sidebar-active');
+const $footerActive = document.querySelector('#footer-active');
+const $factList = document.querySelector('#fact-list');
 const factRequest = new XMLHttpRequest();
 var getLimit = 0;
+var viewingHomePage = true;
 var today = dateToday();
 var otherDate = [...today];
 var factToday;
@@ -81,6 +89,26 @@ $monthSelector.addEventListener('change', function (event) {
 /* save fact */
 $saveFact.addEventListener('click', function (event) {
   saveCurrentFact();
+});
+
+/* switch to calendar or daily fact views */
+$sidebarActiveButton.addEventListener('click', function (event) {
+  switchViewCalendar();
+});
+$footerActive.querySelector('button').addEventListener('click', function (event) {
+  switchViewCalendar();
+});
+
+/* switch displayed calendar month */
+$calendarMonths.addEventListener('click', function (event) {
+  if (event.target.tagName !== 'BUTTON') return;
+  for (let i = 0; i < $calendarMonths.children.length; i++) {
+    $calendarMonths.children[i].className = '';
+  }
+  event.target.className = 'selected';
+  const monthName = event.target.textContent;
+  const monthNum = (monthNames.indexOf(monthName) + 1);
+  loadFacts(monthNum);
 });
 
 /* entry objects format: savedFacts: {10: {1: {year: text, year:text}, 2: {year: text}}, 11: {}} */
@@ -152,9 +180,61 @@ function dateToday() {
 }
 
 function getFact(date) {
+  if ($dailyFact === null) return;
   const month = date[0];
   const day = date[1];
   $currentDate.textContent = `${monthNames[month - 1]} ${day}`;
   factRequest.open('GET', `http://numbersapi.com/${month}/${day}/date?json`);
   factRequest.send();
+}
+
+function switchViewCalendar() {
+  if (viewingHomePage === true) {
+    $mainDailyFact.classList.add('hidden');
+    $dateLabel.classList.add('hidden');
+    $currentDate.classList.add('hidden');
+    $viewNewDate.classList.add('hidden');
+    $calendarLabel.classList.remove('hidden');
+    $calendarMonths.classList.remove('hidden');
+    $calendarList.classList.remove('hidden');
+    $sidebarActiveButton.textContent = 'BACK TO DAILY FACT';
+    $footerActive.querySelector('button').textContent = 'BACK TO DAILY FACT';
+    viewingHomePage = false;
+    for (let i = 0; i < $calendarMonths.children.length; i++) {
+      $calendarMonths.children[i].className = '';
+    }
+    $calendarMonths.children[(today[0] - 1)].className = 'selected';
+    loadFacts(today[0]);
+  } else {
+    $mainDailyFact.classList.remove('hidden');
+    $dateLabel.classList.remove('hidden');
+    $currentDate.classList.remove('hidden');
+    $viewNewDate.classList.remove('hidden');
+    $calendarLabel.classList.add('hidden');
+    $calendarMonths.classList.add('hidden');
+    $calendarList.classList.add('hidden');
+    $sidebarActiveButton.textContent = 'VIEW CALENDAR OF FACTS';
+    $footerActive.querySelector('button').textContent = 'VIEW CALENDAR OF FACTS';
+    viewingHomePage = true;
+  }
+}
+
+function loadFacts(monthNum) {
+  $factList.textContent = '';
+  $calendarList.querySelector('h2').textContent = `SAVED FACTS FOR ${monthNames[(monthNum - 1)]}`;
+  if (savedFacts[monthNum] === undefined) return;
+  const dayCount = checkDaysInMonth(monthNum);
+  for (let i = 1; i <= dayCount; i++) {
+    if (savedFacts[monthNum][i] === undefined) continue;
+    const newListDay = document.createElement('li');
+    newListDay.textContent = `${monthNames[monthNum - 1]} ${i}`;
+    newListDay.className = 'list-divider';
+    $factList.appendChild(newListDay);
+    const years = Object.keys(savedFacts[monthNum][i]);
+    for (let j = 0; j < years.length; j++) {
+      const newListItem = document.createElement('li');
+      newListItem.textContent = savedFacts[monthNum][i][years[j]];
+      $factList.appendChild(newListItem);
+    }
+  }
 }
