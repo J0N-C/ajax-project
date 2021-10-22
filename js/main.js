@@ -1,6 +1,6 @@
 /* global savedFacts */
 /* imported savedFacts */
-const monthNames = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'Decemter'];
+const monthNames = ['JANUARY', 'FEBRUARY', 'MARCH', 'APRIL', 'MAY', 'JUNE', 'JULY', 'AUGUST', 'SEPTEMBER', 'OCTOBER', 'NOVEMBER', 'DECEMBER'];
 const $dailyFact = document.querySelector('#daily-fact');
 const $dateLabel = document.querySelector('#date-label');
 const $currentDate = document.querySelector('#current-date');
@@ -19,6 +19,7 @@ const $mainDailyFact = document.querySelector('#main-daily-fact');
 const $calendarList = document.querySelector('#calendar-list');
 const $sidebarActiveButton = document.querySelector('#sidebar-active');
 const $footerActive = document.querySelector('#footer-active');
+const $factList = document.querySelector('#fact-list');
 const factRequest = new XMLHttpRequest();
 var getLimit = 0;
 var viewingHomePage = true;
@@ -96,6 +97,14 @@ $sidebarActiveButton.addEventListener('click', function (event) {
 });
 $footerActive.querySelector('button').addEventListener('click', function (event) {
   switchViewCalendar();
+});
+
+/* switch displayed calendar month */
+$calendarMonths.addEventListener('click', function (event) {
+  if (event.target.tagName !== 'BUTTON') return;
+  const monthName = event.target.textContent;
+  const monthNum = (monthNames.indexOf(monthName) + 1);
+  loadFacts(monthNum);
 });
 
 /* entry objects format: savedFacts: {10: {1: {year: text, year:text}, 2: {year: text}}, 11: {}} */
@@ -198,5 +207,23 @@ function switchViewCalendar() {
     $sidebarActiveButton.textContent = 'VIEW CALENDAR OF FACTS';
     $footerActive.querySelector('button').textContent = 'VIEW CALENDAR OF FACTS';
     viewingHomePage = true;
+  }
+}
+
+function loadFacts(monthNum) {
+  $factList.textContent = '';
+  if (savedFacts[monthNum] === undefined) return;
+  const dayCount = checkDaysInMonth(monthNum);
+  for (let i = 1; i <= dayCount; i++) {
+    if (savedFacts[monthNum][i] === undefined) continue;
+    const newListDay = document.createElement('li');
+    newListDay.textContent = `${monthNames[monthNum - 1]} ${i}`;
+    $factList.appendChild(newListDay);
+    const years = Object.keys(savedFacts[monthNum][i]);
+    for (let j = 0; j < years.length; j++) {
+      const newListItem = document.createElement('li');
+      newListItem.textContent = savedFacts[monthNum][i][years[j]];
+      $factList.appendChild(newListItem);
+    }
   }
 }

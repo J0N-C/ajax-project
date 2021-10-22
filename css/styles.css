@@ -33,7 +33,13 @@ main {
   flex: 1;
 }
 
-p {
+ul {
+  list-style: none;
+  padding: 0;
+}
+
+p,
+li {
   font-size: 150%;
   font-family: 'Raleway', sans-serif;
   color: #292929;
