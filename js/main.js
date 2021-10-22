@@ -102,8 +102,13 @@ $footerActive.querySelector('button').addEventListener('click', function (event)
 /* switch displayed calendar month */
 $calendarMonths.addEventListener('click', function (event) {
   if (event.target.tagName !== 'BUTTON') return;
+  for (let i = 0; i < $calendarMonths.children.length; i++) {
+    $calendarMonths.children[i].className = '';
+  }
+  event.target.className = 'selected';
   const monthName = event.target.textContent;
   const monthNum = (monthNames.indexOf(monthName) + 1);
+  $calendarList.querySelector('h2').textContent = `SAVED FACTS FOR ${monthName}`;
   loadFacts(monthNum);
 });
 
@@ -218,6 +223,7 @@ function loadFacts(monthNum) {
     if (savedFacts[monthNum][i] === undefined) continue;
     const newListDay = document.createElement('li');
     newListDay.textContent = `${monthNames[monthNum - 1]} ${i}`;
+    newListDay.className = 'list-divider';
     $factList.appendChild(newListDay);
     const years = Object.keys(savedFacts[monthNum][i]);
     for (let j = 0; j < years.length; j++) {

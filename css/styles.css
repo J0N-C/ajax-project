@@ -43,7 +43,7 @@ li {
   font-size: 150%;
   font-family: 'Raleway', sans-serif;
   color: #292929;
-  padding: 1rem 0;
+  padding: 0.5rem 0;
 }
 
 footer {
@@ -83,6 +83,10 @@ select {
 #calendar-months button.selected {
   background-color: #8c9faa;
   color: #fff;
+}
+
+.list-divider {
+  padding-top: 1rem;
 }
 
 .modal {
