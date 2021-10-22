@@ -1,6 +1,6 @@
 /* exported savedFacts */
 var savedFacts = {
-
+  'temp fact': []
 };
 
 window.addEventListener('beforeunload', function (event) {

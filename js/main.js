@@ -13,8 +13,15 @@ const $viewNewDate = document.querySelector('#view-new-date');
 const $submitNewDate = document.querySelector('#submit-new-date');
 const $closeDateSelect = document.querySelector('#close-date-select');
 const $saveNotify = document.querySelector('#save-notify');
+const $calendarLabel = document.querySelector('#calendar-label');
+
+const $mainDailyFact = document.querySelector('#main-daily-fact');
+const $calendarList = document.querySelector('#calendar-list');
+const $sidebarActiveButton = document.querySelector('#sidebar-active');
+const $footerActive = document.querySelector('#footer-active');
 const factRequest = new XMLHttpRequest();
 var getLimit = 0;
+var viewingHomePage = true;
 var today = dateToday();
 var otherDate = [...today];
 var factToday;
@@ -81,6 +88,14 @@ $monthSelector.addEventListener('change', function (event) {
 /* save fact */
 $saveFact.addEventListener('click', function (event) {
   saveCurrentFact();
+});
+
+/* switch to calendar or daily fact views */
+$sidebarActiveButton.addEventListener('click', function (event) {
+  switchViewCalendar();
+});
+$footerActive.querySelector('button').addEventListener('click', function (event) {
+  switchViewCalendar();
 });
 
 /* entry objects format: savedFacts: {10: {1: {year: text, year:text}, 2: {year: text}}, 11: {}} */
@@ -152,9 +167,34 @@ function dateToday() {
 }
 
 function getFact(date) {
+  if ($dailyFact === null) return;
   const month = date[0];
   const day = date[1];
   $currentDate.textContent = `${monthNames[month - 1]} ${day}`;
   factRequest.open('GET', `http://numbersapi.com/${month}/${day}/date?json`);
   factRequest.send();
+}
+
+function switchViewCalendar() {
+  if (viewingHomePage === true) {
+    $mainDailyFact.classList.add('hidden');
+    $dateLabel.classList.add('hidden');
+    $currentDate.classList.add('hidden');
+    $viewNewDate.classList.add('hidden');
+    $calendarLabel.classList.remove('hidden');
+    $calendarList.classList.remove('hidden');
+    $sidebarActiveButton.textContent = 'BACK TO DAILY FACT';
+    $footerActive.querySelector('button').textContent = 'BACK TO DAILY FACT';
+    viewingHomePage = false;
+  } else {
+    $mainDailyFact.classList.remove('hidden');
+    $dateLabel.classList.remove('hidden');
+    $currentDate.classList.remove('hidden');
+    $viewNewDate.classList.remove('hidden');
+    $calendarLabel.classList.add('hidden');
+    $calendarList.classList.add('hidden');
+    $sidebarActiveButton.textContent = 'VIEW CALENDAR OF FACTS';
+    $footerActive.querySelector('button').textContent = 'VIEW CALENDAR OF FACTS';
+    viewingHomePage = true;
+  }
 }

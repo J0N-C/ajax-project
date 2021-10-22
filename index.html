@@ -13,7 +13,7 @@
   <link rel="stylesheet" href="css/layout.css">
   <link rel="stylesheet" href="css/styles.css">
 </head>
-<body class="row">
+<body class="row" id="homepage">
 
   <div id="date-modal" class="hidden">
     <form class="light-cream popup" id="date-select">
@@ -52,12 +52,24 @@
   <main class="column-full row main-row">
     <div class="lightgray sidebar row just-sidebar">
       <h2 id="date-label" class="column-full">TODAY'S DATE</h2>
+      <h2 id="calendar-label" class="column-full hidden">TRIVIA CALENDAR</h2>
+      <div id="calendar-months" class="flex hidden">
+        <button>test</button>
+        <button>test</button>
+        <button>test</button>
+      </div>
       <h2 id="current-date" class="column-full"> </h2>
       <button class="darkgray" id="view-new-date">VIEW ANOTHER DATE</button>
       <button id="sidebar-active" class="darkgray hidden footer">VIEW CALENDAR OF FACTS</button>
     </div>
 
-    <div class="light-cream column-full fill-col">
+    <div id="calendar-list" class="light-cream column-full fill-col hidden">
+      <ul id="fact-list">
+
+      </ul>
+    </div>
+
+    <div id="main-daily-fact" class="light-cream column-full fill-col">
       <p id="daily-fact"> </p>
       <div class="flex spce-btwn">
         <button id="save-fact" class="darkgray">SAVE FACT</button>
@@ -65,6 +77,7 @@
       </div>
       <p id="save-notify" class="hidden">FACT SAVED!</p>
     </div>
+
   </main>
 
   <footer id="footer-active" class="lightgray row just-cent">

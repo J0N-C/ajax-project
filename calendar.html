@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AJAX Project</title>
+  <link rel="icon" href="images/favicon.ico">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300&family=Raleway&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="css/reset.css">
+  <link rel="stylesheet" href="css/layout.css">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body class="row">
+
+  <header class="column-full">
+    <div class="darkgray">
+      <a href="index.html">
+        <h1>previously today...</h1>
+      </a>
+    </div>
+  </header>
+
+  <main class="column-full row main-row">
+    <div class="lightgray sidebar row just-sidebar">
+      <h2 class="column-full">TRIVIA CALENDAR</h2>
+      <div id="calendar-months" class="flex">
+        <button></button>
+        <button></button>
+        <button></button>
+      </div>
+      <button id="sidebar-active" class="darkgray hidden footer" onclick="location.href='index.html'" type="button">BACK TO DAILY FACTS</button>
+    </div>
+
+    <div class="light-cream column-full fill-col">
+      <ul id="fact-list">
+
+      </ul>
+    </div>
+  </main>
+
+  <footer id="footer-active" class="lightgray row just-cent">
+    <button class="darkgray footer" onclick="location.href='index.html'" type="button">BACK TO DAILY FACTS</button>
+  </footer>
+
+  <script src="js/data.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>
