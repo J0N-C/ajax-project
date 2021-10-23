@@ -58,7 +58,7 @@ button {
   border: none;
   padding: 0.25rem 1rem;
   border-radius: 6px;
-  margin-top: 1rem;
+  margin-bottom: 1rem;
 }
 
 select {
@@ -78,7 +78,6 @@ select {
   border: none;
   padding: 0.25rem 0.5rem;
   border-radius: 20px;
-  margin-top: 1rem;
   background-color: #fff;
   color: #292929;
 }

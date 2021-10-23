@@ -32,8 +32,9 @@ body {
   width: 100%;
 }
 
-.column-third {
-  width: 33%;
+.column-75,
+.column-20 {
+  width: 100%;
 }
 
 .just-sidebar {
@@ -53,6 +54,14 @@ body {
     margin: auto;
     max-width: 1280px;
     background-color: #292929;
+  }
+
+  .column-75 {
+    width: 75%;
+  }
+
+  .column-20 {
+    width: 20%;
   }
 
   .fill-col {

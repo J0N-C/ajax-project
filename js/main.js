@@ -233,15 +233,19 @@ function loadFacts(monthNum) {
     const years = Object.keys(savedFacts[monthNum][i]);
     for (let j = 0; j < years.length; j++) {
       const $newListItem = document.createElement('li');
-      $newListItem.className = 'flex';
+      $newListItem.className = 'flex spce-btwn wrap';
       const $newListText = document.createElement('p');
+      $newListText.className = 'column-75';
       $newListText.textContent = savedFacts[monthNum][i][years[j]];
       $newListItem.appendChild($newListText);
       $factList.appendChild($newListItem);
+      const $newDeleteContainer = document.createElement('div');
+      $newDeleteContainer.className = 'column-20';
       const $newDeleteButton = document.createElement('button');
-      $newDeleteButton.textContent = 'DELETE FACT';
-      $newDeleteButton.className = 'red';
-      $newListItem.appendChild($newDeleteButton);
+      $newDeleteButton.textContent = 'DELETE';
+      $newDeleteButton.className = 'red column-full';
+      $newListItem.appendChild($newDeleteContainer);
+      $newDeleteContainer.appendChild($newDeleteButton);
     }
   }
 }
