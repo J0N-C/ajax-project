@@ -109,6 +109,7 @@ $calendarMonths.addEventListener('click', function (event) {
   event.target.className = 'selected';
   const monthName = event.target.textContent;
   const monthNum = (monthNames.indexOf(monthName) + 1);
+  $factList.setAttribute('data-month', monthNum);
   loadFacts(monthNum);
 });
 
@@ -116,7 +117,18 @@ $calendarMonths.addEventListener('click', function (event) {
 $factList.addEventListener('click', function (event) {
   for (let i = 0; i < $allDeleteButtons.length; i++) {
     if ($allDeleteButtons[i] === event.target) {
-      return;
+      const factMonth = parseInt($factList.getAttribute('data-month'));
+      const factDay = parseInt(event.target.closest('li').getAttribute('data-day'));
+      const factYear = parseInt(event.target.closest('li').getAttribute('data-year'));
+      const factIndex = parseInt(event.target.closest('li').getAttribute('data-index'));
+      savedFacts[factMonth][factDay][factYear].splice([factIndex], 1);
+      if (savedFacts[factMonth][factDay][factYear].length === 0) {
+        delete savedFacts[factMonth][factDay][factYear];
+      }
+      if (Object.keys(savedFacts[factMonth][factDay]).length === 0) {
+        delete savedFacts[factMonth][factDay];
+      }
+      loadFacts(factMonth);
     }
   }
 
@@ -219,6 +231,7 @@ function switchViewCalendar() {
     }
     $calendarMonths.children[(today[0] - 1)].className = 'selected';
     loadFacts(today[0]);
+    $factList.setAttribute('data-month', today[0]);
   } else {
     $mainDailyFact.classList.remove('hidden');
     $dateLabel.classList.remove('hidden');
@@ -270,4 +283,3 @@ function loadFacts(monthNum) {
   }
   $allDeleteButtons = document.querySelectorAll('li > div > button');
 }
-/* <button id="close-date-select" class="red">CANCEL</button> */

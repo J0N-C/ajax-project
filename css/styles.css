@@ -133,3 +133,7 @@ select {
 .red {
   background: #da7f8f;
 }
+
+.popup .lightgray {
+  margin-bottom: 1rem;
+}
