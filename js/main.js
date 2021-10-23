@@ -20,7 +20,7 @@ const $calendarList = document.querySelector('#calendar-list');
 const $sidebarActiveButton = document.querySelector('#sidebar-active');
 const $footerActive = document.querySelector('#footer-active');
 const $factList = document.querySelector('#fact-list');
-
+var $allDeleteButtons;
 const factRequest = new XMLHttpRequest();
 var getLimit = 0;
 var viewingHomePage = true;
@@ -112,7 +112,17 @@ $calendarMonths.addEventListener('click', function (event) {
   loadFacts(monthNum);
 });
 
-/* entry objects format: savedFacts: {10: {1: {year: text, year:text}, 2: {year: text}}, 11: {}} */
+/* delete fact */
+$factList.addEventListener('click', function (event) {
+  for (let i = 0; i < $allDeleteButtons.length; i++) {
+    if ($allDeleteButtons[i] === event.target) {
+      return;
+    }
+  }
+
+});
+
+/* entry objects format: savedFacts: {10: {1: {year: [text1, text2], year: [text1]}, 2: {year: [text]}}, 11: {}} */
 function saveCurrentFact() {
   const year = factToday.year;
   const month = otherDate[0];
@@ -124,7 +134,10 @@ function saveCurrentFact() {
     savedFacts[month][day] = {};
   }
   if (savedFacts[month][day][year] === undefined) {
-    savedFacts[month][day][year] = factToday.text;
+    savedFacts[month][day][year] = [];
+  }
+  if (savedFacts[month][day][year].indexOf(factToday.text) === -1) {
+    savedFacts[month][day][year].push(factToday.text);
   }
   $saveNotify.className = '';
 }
@@ -233,24 +246,28 @@ function loadFacts(monthNum) {
     $factList.appendChild(newListDay);
     const years = Object.keys(savedFacts[monthNum][i]);
     for (let j = 0; j < years.length; j++) {
-      const $newListItem = document.createElement('li');
-      $newListItem.className = 'flex spce-btwn wrap';
-      $newListItem.setAttribute('data-day', i);
-      $newListItem.setAttribute('data-year', years[j]);
-      const $newListText = document.createElement('p');
-      $newListText.className = 'column-75';
-      $newListText.textContent = savedFacts[monthNum][i][years[j]];
-      $newListItem.appendChild($newListText);
-      $factList.appendChild($newListItem);
-      const $newDeleteContainer = document.createElement('div');
-      $newDeleteContainer.className = 'column-20 row just-cent';
-      const $newDeleteButton = document.createElement('button');
-      $newDeleteButton.textContent = 'DELETE';
-      $newDeleteButton.className = 'red column-full';
-      $newListItem.appendChild($newDeleteContainer);
-      $newDeleteContainer.appendChild($newDeleteButton);
+      for (let k = 0; k < savedFacts[monthNum][i][years[j]].length; k++) {
+        const $newListItem = document.createElement('li');
+        $newListItem.className = 'flex spce-btwn wrap';
+        $newListItem.setAttribute('data-day', i);
+        $newListItem.setAttribute('data-year', years[j]);
+        $newListItem.setAttribute('data-index', k);
+        const $newListText = document.createElement('p');
+        $newListText.className = 'column-75';
+        $newListText.textContent = savedFacts[monthNum][i][years[j]];
+        $newListItem.appendChild($newListText);
+        $factList.appendChild($newListItem);
+        const $newDeleteContainer = document.createElement('div');
+        $newDeleteContainer.className = 'column-20 row just-cent';
+        const $newDeleteButton = document.createElement('button');
+        $newDeleteButton.textContent = 'DELETE';
+        $newDeleteButton.className = 'red column-full';
+        $newListItem.appendChild($newDeleteContainer);
+        $newDeleteContainer.appendChild($newDeleteButton);
+      }
+
     }
   }
-
+  $allDeleteButtons = document.querySelectorAll('li > div > button');
 }
 /* <button id="close-date-select" class="red">CANCEL</button> */
