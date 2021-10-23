@@ -20,6 +20,7 @@ const $calendarList = document.querySelector('#calendar-list');
 const $sidebarActiveButton = document.querySelector('#sidebar-active');
 const $footerActive = document.querySelector('#footer-active');
 const $factList = document.querySelector('#fact-list');
+
 const factRequest = new XMLHttpRequest();
 var getLimit = 0;
 var viewingHomePage = true;
@@ -234,6 +235,8 @@ function loadFacts(monthNum) {
     for (let j = 0; j < years.length; j++) {
       const $newListItem = document.createElement('li');
       $newListItem.className = 'flex spce-btwn wrap';
+      $newListItem.setAttribute('data-day', i);
+      $newListItem.setAttribute('data-year', years[j]);
       const $newListText = document.createElement('p');
       $newListText.className = 'column-75';
       $newListText.textContent = savedFacts[monthNum][i][years[j]];
@@ -248,5 +251,6 @@ function loadFacts(monthNum) {
       $newDeleteContainer.appendChild($newDeleteButton);
     }
   }
+
 }
 /* <button id="close-date-select" class="red">CANCEL</button> */
