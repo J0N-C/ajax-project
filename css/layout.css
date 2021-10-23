@@ -37,12 +37,17 @@ body {
   width: 100%;
 }
 
-.just-sidebar {
+.just-sidebar,
+.just-cent {
   justify-content: center;
 }
 
 .spce-btwn {
   justify-content: space-between;
+}
+
+.align-cent {
+  align-items: center;
 }
 
 .wrap {

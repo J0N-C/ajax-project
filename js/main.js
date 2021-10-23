@@ -240,7 +240,7 @@ function loadFacts(monthNum) {
       $newListItem.appendChild($newListText);
       $factList.appendChild($newListItem);
       const $newDeleteContainer = document.createElement('div');
-      $newDeleteContainer.className = 'column-20';
+      $newDeleteContainer.className = 'column-20 row just-cent';
       const $newDeleteButton = document.createElement('button');
       $newDeleteButton.textContent = 'DELETE';
       $newDeleteButton.className = 'red column-full';
