@@ -12,6 +12,10 @@ const $daySelector = document.querySelector('#day-select');
 const $viewNewDate = document.querySelector('#view-new-date');
 const $submitNewDate = document.querySelector('#submit-new-date');
 const $closeDateSelect = document.querySelector('#close-date-select');
+const $deleteModal = document.querySelector('#delete-modal');
+const $confirmDate = document.querySelector('#confirm-date');
+const $confirmDelete = document.querySelector('#confirm-delete');
+const $closeDelete = document.querySelector('#close-delete');
 const $saveNotify = document.querySelector('#save-notify');
 const $calendarLabel = document.querySelector('#calendar-label');
 const $calendarMonths = document.querySelector('#calendar-months');
@@ -27,6 +31,7 @@ var viewingHomePage = true;
 var today = dateToday();
 var otherDate = [...today];
 var factToday;
+var deleteThis;
 getFact(today);
 
 /* listener for loading fact, if fact is the same, retry loading up to 3 times */
@@ -82,6 +87,12 @@ $closeDateSelect.addEventListener('click', function (event) {
   $dateModal.className = 'hidden';
 });
 
+/* cancel and close delete confirmation modal */
+$closeDelete.addEventListener('click', function (event) {
+  event.preventDefault();
+  $deleteModal.className = 'hidden';
+});
+
 /* auto populate date selector days with days of month */
 $monthSelector.addEventListener('change', function (event) {
   populateDays(checkDaysInMonth(parseInt($monthSelector.value)));
@@ -113,25 +124,35 @@ $calendarMonths.addEventListener('click', function (event) {
   loadFacts(monthNum);
 });
 
-/* delete fact */
+/* delete confirmation */
 $factList.addEventListener('click', function (event) {
+  if (event.target.tagName !== 'BUTTON') return;
+  deleteThis = {};
+  $deleteModal.className = 'modal';
   for (let i = 0; i < $allDeleteButtons.length; i++) {
     if ($allDeleteButtons[i] === event.target) {
-      const factMonth = parseInt($factList.getAttribute('data-month'));
-      const factDay = parseInt(event.target.closest('li').getAttribute('data-day'));
-      const factYear = parseInt(event.target.closest('li').getAttribute('data-year'));
-      const factIndex = parseInt(event.target.closest('li').getAttribute('data-index'));
-      savedFacts[factMonth][factDay][factYear].splice([factIndex], 1);
-      if (savedFacts[factMonth][factDay][factYear].length === 0) {
-        delete savedFacts[factMonth][factDay][factYear];
-      }
-      if (Object.keys(savedFacts[factMonth][factDay]).length === 0) {
-        delete savedFacts[factMonth][factDay];
-      }
-      loadFacts(factMonth);
+      deleteThis.liIndex = i;
+      deleteThis.factMonth = parseInt($factList.getAttribute('data-month'));
+      deleteThis.factDay = parseInt(event.target.closest('li').getAttribute('data-day'));
+      deleteThis.factYear = parseInt(event.target.closest('li').getAttribute('data-year'));
+      deleteThis.factIndex = parseInt(event.target.closest('li').getAttribute('data-index'));
     }
   }
+  $confirmDate.textContent = `${deleteThis.factMonth}-${deleteThis.factDay}-${deleteThis.factYear}`;
+});
 
+/* delete confirmation */
+$confirmDelete.addEventListener('click', function (event) {
+  event.preventDefault();
+  savedFacts[deleteThis.factMonth][deleteThis.factDay][deleteThis.factYear].splice([deleteThis.factIndex], 1);
+  if (savedFacts[deleteThis.factMonth][deleteThis.factDay][deleteThis.factYear].length === 0) {
+    delete savedFacts[deleteThis.factMonth][deleteThis.factDay][deleteThis.factYear];
+  }
+  if (Object.keys(savedFacts[deleteThis.factMonth][deleteThis.factDay]).length === 0) {
+    delete savedFacts[deleteThis.factMonth][deleteThis.factDay];
+  }
+  loadFacts(deleteThis.factMonth);
+  $deleteModal.className = 'hidden';
 });
 
 /* entry objects format: savedFacts: {10: {1: {year: [text1, text2], year: [text1]}, 2: {year: [text]}}, 11: {}} */
