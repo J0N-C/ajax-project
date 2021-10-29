@@ -20,7 +20,7 @@ const $calendarList = document.querySelector('#calendar-list');
 const $sidebarActiveButton = document.querySelector('#sidebar-active');
 const $footerActive = document.querySelector('#footer-active');
 const $factList = document.querySelector('#fact-list');
-const xhr = new XMLHttpRequest();
+const xhr = new XMLHttpRequest(); /* temporary proxy request */
 var getLimit = 0;
 var viewingHomePage = true;
 var today = dateToday();
@@ -28,8 +28,7 @@ var otherDate = [...today];
 var factToday;
 getFact(today);
 
-/* temporary proxy requester */
-
+/* temporary proxy listener */
 xhr.addEventListener('load', function () {
   factToday = xhr.response;
   if ($dailyFact.textContent === factToday.text && getLimit < 4) {
