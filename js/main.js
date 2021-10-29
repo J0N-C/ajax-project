@@ -26,6 +26,7 @@ const $footerActive = document.querySelector('#footer-active');
 const $factList = document.querySelector('#fact-list');
 var $allDeleteButtons;
 const factRequest = new XMLHttpRequest();
+const xhr = new XMLHttpRequest(); /* temporary proxy request */
 var getLimit = 0;
 var viewingHomePage = true;
 var today = dateToday();
@@ -34,7 +35,19 @@ var factToday;
 var deleteThis;
 getFact(today);
 
-/* listener for loading fact, if fact is the same, retry loading up to 3 times */
+/* temporary proxy listener */
+xhr.addEventListener('load', function () {
+  factToday = xhr.response;
+  if ($dailyFact.textContent === factToday.text && getLimit < 4) {
+    getLimit++;
+    return getFact(otherDate);
+  }
+  $dailyFact.textContent = factToday.text;
+  getLimit = 0;
+});
+
+/* Original get setup, replace when backend is learned!!!
+const factRequest = new XMLHttpRequest();
 factRequest.addEventListener('load', function () {
   factToday = JSON.parse(factRequest.response);
   if ($dailyFact.textContent === factToday.text && getLimit < 4) {
@@ -43,7 +56,7 @@ factRequest.addEventListener('load', function () {
   }
   $dailyFact.textContent = factToday.text;
   getLimit = 0;
-});
+}); */
 
 /* generate new fact */
 $getNewFact.addEventListener('click', function () {
@@ -226,6 +239,7 @@ function dateToday() {
   return fullDate;
 }
 
+/*  CHANGE WHEN BACKEND IS LEARNED!!!
 function getFact(date) {
   if ($dailyFact === null) return;
   const month = date[0];
@@ -233,6 +247,19 @@ function getFact(date) {
   $currentDate.textContent = `${monthNames[month - 1]} ${day}`;
   factRequest.open('GET', `http://numbersapi.com/${month}/${day}/date?json`);
   factRequest.send();
+} */
+
+function getFact(date) {
+
+  if ($dailyFact === null) return;
+  const month = date[0];
+  const day = date[1];
+  $currentDate.textContent = `${monthNames[month - 1]} ${day}`;
+  const numbersAPIrequest = `http://numbersapi.com/${month}/${day}/date?json`;
+  xhr.open('GET', `https://lfz-cors.herokuapp.com/?url=${numbersAPIrequest}`);
+  xhr.setRequestHeader('token', 'abc123');
+  xhr.responseType = 'json';
+  xhr.send();
 }
 
 function switchViewCalendar() {
