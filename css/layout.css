@@ -28,20 +28,27 @@ body {
 }
 
 .column-full,
-.sidebar {
+.sidebar,
+.column-75 {
   width: 100%;
 }
 
-.column-third {
-  width: 33%;
+.column-20 {
+  width: 50%;
+  margin: auto;
 }
 
-.just-sidebar {
+.just-sidebar,
+.just-cent {
   justify-content: center;
 }
 
 .spce-btwn {
   justify-content: space-between;
+}
+
+.align-cent {
+  align-items: center;
 }
 
 .wrap {
@@ -53,6 +60,15 @@ body {
     margin: auto;
     max-width: 1280px;
     background-color: #292929;
+  }
+
+  .column-75 {
+    width: 75%;
+  }
+
+  .column-20 {
+    width: 20%;
+    margin: 0;
   }
 
   .fill-col {

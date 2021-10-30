@@ -40,8 +40,11 @@ ul {
 
 p,
 li {
-  font-size: 150%;
   font-family: 'Raleway', sans-serif;
+}
+
+p {
+  font-size: 150%;
   color: #292929;
   padding: 0.5rem 0;
 }
@@ -55,7 +58,7 @@ button {
   border: none;
   padding: 0.25rem 1rem;
   border-radius: 6px;
-  margin-top: 1rem;
+  margin-bottom: 1rem;
 }
 
 select {
@@ -75,7 +78,6 @@ select {
   border: none;
   padding: 0.25rem 0.5rem;
   border-radius: 20px;
-  margin-top: 1rem;
   background-color: #fff;
   color: #292929;
 }
@@ -87,6 +89,7 @@ select {
 
 .list-divider {
   padding-top: 1rem;
+  font-size: 160%;
 }
 
 .modal {
@@ -129,4 +132,8 @@ select {
 
 .red {
   background: #da7f8f;
+}
+
+.popup .lightgray {
+  margin-bottom: 1rem;
 }

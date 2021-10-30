@@ -12,6 +12,10 @@ const $daySelector = document.querySelector('#day-select');
 const $viewNewDate = document.querySelector('#view-new-date');
 const $submitNewDate = document.querySelector('#submit-new-date');
 const $closeDateSelect = document.querySelector('#close-date-select');
+const $deleteModal = document.querySelector('#delete-modal');
+const $confirmDate = document.querySelector('#confirm-date');
+const $confirmDelete = document.querySelector('#confirm-delete');
+const $closeDelete = document.querySelector('#close-delete');
 const $saveNotify = document.querySelector('#save-notify');
 const $calendarLabel = document.querySelector('#calendar-label');
 const $calendarMonths = document.querySelector('#calendar-months');
@@ -20,12 +24,15 @@ const $calendarList = document.querySelector('#calendar-list');
 const $sidebarActiveButton = document.querySelector('#sidebar-active');
 const $footerActive = document.querySelector('#footer-active');
 const $factList = document.querySelector('#fact-list');
+var $allDeleteButtons;
+const factRequest = new XMLHttpRequest();
 const xhr = new XMLHttpRequest(); /* temporary proxy request */
 var getLimit = 0;
 var viewingHomePage = true;
 var today = dateToday();
 var otherDate = [...today];
 var factToday;
+var deleteThis;
 getFact(today);
 
 /* temporary proxy listener */
@@ -93,6 +100,12 @@ $closeDateSelect.addEventListener('click', function (event) {
   $dateModal.className = 'hidden';
 });
 
+/* cancel and close delete confirmation modal */
+$closeDelete.addEventListener('click', function (event) {
+  event.preventDefault();
+  $deleteModal.className = 'hidden';
+});
+
 /* auto populate date selector days with days of month */
 $monthSelector.addEventListener('change', function (event) {
   populateDays(checkDaysInMonth(parseInt($monthSelector.value)));
@@ -120,10 +133,42 @@ $calendarMonths.addEventListener('click', function (event) {
   event.target.className = 'selected';
   const monthName = event.target.textContent;
   const monthNum = (monthNames.indexOf(monthName) + 1);
+  $factList.setAttribute('data-month', monthNum);
   loadFacts(monthNum);
 });
 
-/* entry objects format: savedFacts: {10: {1: {year: text, year:text}, 2: {year: text}}, 11: {}} */
+/* delete confirmation */
+$factList.addEventListener('click', function (event) {
+  if (event.target.tagName !== 'BUTTON') return;
+  deleteThis = {};
+  $deleteModal.className = 'modal';
+  for (let i = 0; i < $allDeleteButtons.length; i++) {
+    if ($allDeleteButtons[i] === event.target) {
+      deleteThis.liIndex = i;
+      deleteThis.factMonth = parseInt($factList.getAttribute('data-month'));
+      deleteThis.factDay = parseInt(event.target.closest('li').getAttribute('data-day'));
+      deleteThis.factYear = parseInt(event.target.closest('li').getAttribute('data-year'));
+      deleteThis.factIndex = parseInt(event.target.closest('li').getAttribute('data-index'));
+    }
+  }
+  $confirmDate.textContent = `${deleteThis.factMonth}-${deleteThis.factDay}-${deleteThis.factYear}`;
+});
+
+/* delete confirmation */
+$confirmDelete.addEventListener('click', function (event) {
+  event.preventDefault();
+  savedFacts[deleteThis.factMonth][deleteThis.factDay][deleteThis.factYear].splice([deleteThis.factIndex], 1);
+  if (savedFacts[deleteThis.factMonth][deleteThis.factDay][deleteThis.factYear].length === 0) {
+    delete savedFacts[deleteThis.factMonth][deleteThis.factDay][deleteThis.factYear];
+  }
+  if (Object.keys(savedFacts[deleteThis.factMonth][deleteThis.factDay]).length === 0) {
+    delete savedFacts[deleteThis.factMonth][deleteThis.factDay];
+  }
+  loadFacts(deleteThis.factMonth);
+  $deleteModal.className = 'hidden';
+});
+
+/* entry objects format: savedFacts: {10: {1: {year: [text1, text2], year: [text1]}, 2: {year: [text]}}, 11: {}} */
 function saveCurrentFact() {
   const year = factToday.year;
   const month = otherDate[0];
@@ -135,7 +180,10 @@ function saveCurrentFact() {
     savedFacts[month][day] = {};
   }
   if (savedFacts[month][day][year] === undefined) {
-    savedFacts[month][day][year] = factToday.text;
+    savedFacts[month][day][year] = [];
+  }
+  if (savedFacts[month][day][year].indexOf(factToday.text) === -1) {
+    savedFacts[month][day][year].push(factToday.text);
   }
   $saveNotify.className = '';
 }
@@ -231,6 +279,7 @@ function switchViewCalendar() {
     }
     $calendarMonths.children[(today[0] - 1)].className = 'selected';
     loadFacts(today[0]);
+    $factList.setAttribute('data-month', today[0]);
   } else {
     $mainDailyFact.classList.remove('hidden');
     $dateLabel.classList.remove('hidden');
@@ -258,9 +307,27 @@ function loadFacts(monthNum) {
     $factList.appendChild(newListDay);
     const years = Object.keys(savedFacts[monthNum][i]);
     for (let j = 0; j < years.length; j++) {
-      const newListItem = document.createElement('li');
-      newListItem.textContent = savedFacts[monthNum][i][years[j]];
-      $factList.appendChild(newListItem);
+      for (let k = 0; k < savedFacts[monthNum][i][years[j]].length; k++) {
+        const $newListItem = document.createElement('li');
+        $newListItem.className = 'flex spce-btwn wrap';
+        $newListItem.setAttribute('data-day', i);
+        $newListItem.setAttribute('data-year', years[j]);
+        $newListItem.setAttribute('data-index', k);
+        const $newListText = document.createElement('p');
+        $newListText.className = 'column-75';
+        $newListText.textContent = savedFacts[monthNum][i][years[j]];
+        $newListItem.appendChild($newListText);
+        $factList.appendChild($newListItem);
+        const $newDeleteContainer = document.createElement('div');
+        $newDeleteContainer.className = 'column-20 row just-cent';
+        const $newDeleteButton = document.createElement('button');
+        $newDeleteButton.textContent = 'DELETE';
+        $newDeleteButton.className = 'red column-full';
+        $newListItem.appendChild($newDeleteContainer);
+        $newDeleteContainer.appendChild($newDeleteButton);
+      }
+
     }
   }
+  $allDeleteButtons = document.querySelectorAll('li > div > button');
 }
