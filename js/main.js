@@ -25,7 +25,7 @@ const $sidebarActiveButton = document.querySelector('#sidebar-active');
 const $footerActive = document.querySelector('#footer-active');
 const $factList = document.querySelector('#fact-list');
 var $allDeleteButtons;
-const factRequest = new XMLHttpRequest();
+
 const xhr = new XMLHttpRequest(); /* temporary proxy request */
 var getLimit = 0;
 var viewingHomePage = true;
