@@ -1,6 +1,6 @@
 /* global savedFacts */
 /* imported savedFacts */
-const monthNames = ['JANUARY', 'FEBRUARY', 'MARCH', 'APRIL', 'MAY', 'JUNE', 'JULY', 'AUGUST', 'SEPTEMBER', 'OCTOBER', 'NOVEMBER', 'DECEMBER'];
+const months = [{ name: 'JANUARY', days: 31 }, { name: 'FEBRUARY', days: 29 }, { name: 'MARCH', days: 31 }, { name: 'APRIL', days: 30 }, { name: 'MAY', days: 31 }, { name: 'JUNE', days: 30 }, { name: 'JULY', days: 31 }, { name: 'AUGUST', days: 31 }, { name: 'SEPTEMBER', days: 30 }, { name: 'OCTOBER', days: 31 }, { name: 'NOVEMBER', days: 30 }, { name: 'DECEMBER', days: 31 }];
 const $dailyFact = document.querySelector('#daily-fact');
 const $dateLabel = document.querySelector('#date-label');
 const $currentDate = document.querySelector('#current-date');
@@ -72,7 +72,7 @@ $viewNewDate.addEventListener('click', function (event) {
       $monthSelector.children[i].setAttribute('selected', 'selected');
     }
   }
-  populateDays(checkDaysInMonth(today[0]));
+  populateDays(months[(today[0] - 1)].days);
   for (let i = 0; i < $daySelector.children.length; i++) {
     if (parseInt($daySelector.children[i].getAttribute('value')) === today[1]) {
       $daySelector.children[i].setAttribute('selected', 'selected');
@@ -108,7 +108,7 @@ $closeDelete.addEventListener('click', function (event) {
 
 /* auto populate date selector days with days of month */
 $monthSelector.addEventListener('change', function (event) {
-  populateDays(checkDaysInMonth(parseInt($monthSelector.value)));
+  populateDays(months[$monthSelector.value - 1].days);
 });
 
 /* save fact */
@@ -132,7 +132,12 @@ $calendarMonths.addEventListener('click', function (event) {
   }
   event.target.className = 'selected';
   const monthName = event.target.textContent;
-  const monthNum = (monthNames.indexOf(monthName) + 1);
+  let monthNum;
+  for (let i = 0; i < months.length; i++) {
+    if (months[i].name === monthName) {
+      monthNum = (i + 1);
+    }
+  }
   $factList.setAttribute('data-month', monthNum);
   loadFacts(monthNum);
 });
@@ -154,7 +159,7 @@ $factList.addEventListener('click', function (event) {
   $confirmDate.textContent = `${deleteThis.factMonth}-${deleteThis.factDay}-${deleteThis.factYear}`;
 });
 
-/* delete confirmation */
+/* yes delete */
 $confirmDelete.addEventListener('click', function (event) {
   event.preventDefault();
   savedFacts[deleteThis.factMonth][deleteThis.factDay][deleteThis.factYear].splice([deleteThis.factIndex], 1);
@@ -188,31 +193,6 @@ function saveCurrentFact() {
   $saveNotify.className = '';
 }
 
-function checkDaysInMonth(value) {
-  let dayCount;
-  switch (value) {
-    case 1:
-    case 3:
-    case 5:
-    case 7:
-    case 8:
-    case 10:
-    case 12:
-      dayCount = 31;
-      break;
-    case 2:
-      dayCount = 29;
-      break;
-    case 4:
-    case 6:
-    case 9:
-    case 11:
-      dayCount = 30;
-      break;
-  }
-  return dayCount;
-}
-
 function populateDays(days) {
   const currentDayCount = $daySelector.length;
   if (days - currentDayCount === 0) return;
@@ -244,7 +224,7 @@ function getFact(date) {
   if ($dailyFact === null) return;
   const month = date[0];
   const day = date[1];
-  $currentDate.textContent = `${monthNames[month - 1]} ${day}`;
+  $currentDate.textContent = `${months[month - 1].name} ${day}`;
   factRequest.open('GET', `http://numbersapi.com/${month}/${day}/date?json`);
   factRequest.send();
 } */
@@ -254,7 +234,7 @@ function getFact(date) {
   if ($dailyFact === null) return;
   const month = date[0];
   const day = date[1];
-  $currentDate.textContent = `${monthNames[month - 1]} ${day}`;
+  $currentDate.textContent = `${months[month - 1].name} ${day}`;
   const numbersAPIrequest = `http://numbersapi.com/${month}/${day}/date?json`;
   xhr.open('GET', `https://lfz-cors.herokuapp.com/?url=${numbersAPIrequest}`);
   xhr.setRequestHeader('token', 'abc123');
@@ -296,13 +276,13 @@ function switchViewCalendar() {
 
 function loadFacts(monthNum) {
   $factList.textContent = '';
-  $calendarList.querySelector('h2').textContent = `SAVED FACTS FOR ${monthNames[(monthNum - 1)]}`;
+  $calendarList.querySelector('h2').textContent = `SAVED FACTS FOR ${months[(monthNum - 1)].name}`;
   if (savedFacts[monthNum] === undefined) return;
-  const dayCount = checkDaysInMonth(monthNum);
+  const dayCount = months[monthNum - 1].days;
   for (let i = 1; i <= dayCount; i++) {
     if (savedFacts[monthNum][i] === undefined) continue;
     const newListDay = document.createElement('li');
-    newListDay.textContent = `${monthNames[monthNum - 1]} ${i}`;
+    newListDay.textContent = `${months[monthNum - 1].name} ${i}`;
     newListDay.className = 'list-divider';
     $factList.appendChild(newListDay);
     const years = Object.keys(savedFacts[monthNum][i]);
