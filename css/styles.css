@@ -87,6 +87,10 @@ select {
   color: #fff;
 }
 
+#daily-fact {
+  min-height: 14rem;
+}
+
 .list-divider {
   padding-top: 1rem;
   font-size: 160%;

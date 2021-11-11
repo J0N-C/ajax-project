@@ -25,7 +25,6 @@ const $sidebarActiveButton = document.querySelector('#sidebar-active');
 const $footerActive = document.querySelector('#footer-active');
 const $factList = document.querySelector('#fact-list');
 var $allDeleteButtons;
-
 const xhr = new XMLHttpRequest(); /* temporary proxy request */
 var getLimit = 0;
 var viewingHomePage = true;
@@ -230,7 +229,6 @@ function getFact(date) {
 } */
 
 function getFact(date) {
-
   if ($dailyFact === null) return;
   const month = date[0];
   const day = date[1];
