@@ -93,6 +93,8 @@ $submitNewDate.addEventListener('click', function (event) {
   getFact(otherDate);
 });
 
+/* select date for tomorrow */
+
 /* cancel and close new date modal */
 $closeDateSelect.addEventListener('click', function (event) {
   event.preventDefault();

@@ -141,3 +141,7 @@ select {
 .popup .lightgray {
   margin-bottom: 1rem;
 }
+
+.small-button {
+  width: 9rem;
+}
