@@ -47,6 +47,10 @@ body {
   justify-content: space-between;
 }
 
+.spce-around {
+  justify-content: space-evenly;
+}
+
 .align-cent {
   align-items: center;
 }

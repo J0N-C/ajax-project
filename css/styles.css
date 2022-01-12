@@ -59,6 +59,7 @@ button {
   padding: 0.25rem 1rem;
   border-radius: 6px;
   margin-bottom: 1rem;
+  margin-top: 1rem;
 }
 
 select {
@@ -73,7 +74,7 @@ select {
 }
 
 #calendar-months button {
-  width: 30%;
+  width: 31%;
   font-size: 100%;
   border: none;
   padding: 0.25rem 0.5rem;
@@ -144,4 +145,8 @@ select {
 
 .small-button {
   width: 9rem;
+}
+
+.med-button {
+  width: 11rem;
 }

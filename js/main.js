@@ -98,10 +98,11 @@ $submitNewDate.addEventListener('click', function (event) {
 /* select date for tomorrow */
 $tomorrow.addEventListener('click', function (event) {
   event.preventDefault();
+  $saveNotify.className = 'hidden';
   otherDate[1] += 1;
   if (otherDate[1] > months[(otherDate[0] - 1)].days) {
     otherDate[0] += 1;
-    if (otherDate[0] === 13) {
+    if (otherDate[0] > 12) {
       otherDate[0] = 1;
     }
     otherDate[1] = 1;
@@ -112,6 +113,7 @@ $tomorrow.addEventListener('click', function (event) {
 /* select date for yesterday */
 $yesterday.addEventListener('click', function (event) {
   event.preventDefault();
+  $saveNotify.className = 'hidden';
   otherDate[1] -= 1;
   if (otherDate[1] < 1) {
     otherDate[0] -= 1;
@@ -334,7 +336,6 @@ function loadFacts(monthNum) {
         $newListItem.appendChild($newDeleteContainer);
         $newDeleteContainer.appendChild($newDeleteButton);
       }
-
     }
   }
   $allDeleteButtons = document.querySelectorAll('li > div > button');
