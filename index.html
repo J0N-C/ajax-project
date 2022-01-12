@@ -12,6 +12,7 @@
   <link rel="stylesheet" href="css/reset.css">
   <link rel="stylesheet" href="css/layout.css">
   <link rel="stylesheet" href="css/styles.css">
+  <script src="https://kit.fontawesome.com/cde92fa975.js" crossorigin="anonymous"></script>
 </head>
 <body class="row" id="homepage">
 
@@ -91,10 +92,13 @@
 
     <div id="main-daily-fact" class="light-cream column-full fill-col">
       <p id="daily-fact"> </p>
-      <div class="flex spce-btwn">
-        <button id="save-fact" class="darkgray">SAVE FACT</button>
-        <button id="new-fact" class="darkgray">NEW FACT</button>
+      <div class="flex wrap spce-around">
+        <button id="save-fact" class="darkgray med-button"><i class="fas fa-pen-alt"></i> SAVE FACT</button>
+        <button id="new-fact" class="darkgray med-button"><i class="fas fa-redo-alt"></i> NEW FACT</button>
+        <button id="yesterday" class="darkgray med-button"><i class="fas fa-chevron-left"></i>  YESTERDAY</button>
+        <button id="tomorrow" class="darkgray med-button">TOMORROW <i class="fas fa-chevron-right"></i></button>
       </div>
+
       <p id="save-notify" class="hidden">FACT SAVED!</p>
     </div>
 

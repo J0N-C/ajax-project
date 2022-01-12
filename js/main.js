@@ -24,6 +24,8 @@ const $calendarList = document.querySelector('#calendar-list');
 const $sidebarActiveButton = document.querySelector('#sidebar-active');
 const $footerActive = document.querySelector('#footer-active');
 const $factList = document.querySelector('#fact-list');
+const $tomorrow = document.querySelector('#tomorrow');
+const $yesterday = document.querySelector('#yesterday');
 var $allDeleteButtons;
 const xhr = new XMLHttpRequest(); /* temporary proxy request */
 var getLimit = 0;
@@ -67,13 +69,13 @@ $getNewFact.addEventListener('click', function () {
 $viewNewDate.addEventListener('click', function (event) {
   $dateModal.className = 'modal';
   for (let i = 0; i < $monthSelector.children.length; i++) {
-    if (parseInt($monthSelector.children[i].getAttribute('value')) === today[0]) {
+    if (parseInt($monthSelector.children[i].getAttribute('value')) === otherDate[0]) {
       $monthSelector.children[i].setAttribute('selected', 'selected');
     }
   }
-  populateDays(months[(today[0] - 1)].days);
+  populateDays(months[(otherDate[0] - 1)].days);
   for (let i = 0; i < $daySelector.children.length; i++) {
-    if (parseInt($daySelector.children[i].getAttribute('value')) === today[1]) {
+    if (parseInt($daySelector.children[i].getAttribute('value')) === otherDate[1]) {
       $daySelector.children[i].setAttribute('selected', 'selected');
     }
   }
@@ -90,6 +92,36 @@ $submitNewDate.addEventListener('click', function (event) {
     $dateLabel.textContent = 'TODAY\'S DATE';
   }
   $saveNotify.className = 'hidden';
+  getFact(otherDate);
+});
+
+/* select date for tomorrow */
+$tomorrow.addEventListener('click', function (event) {
+  event.preventDefault();
+  $saveNotify.className = 'hidden';
+  otherDate[1] += 1;
+  if (otherDate[1] > months[(otherDate[0] - 1)].days) {
+    otherDate[0] += 1;
+    if (otherDate[0] > 12) {
+      otherDate[0] = 1;
+    }
+    otherDate[1] = 1;
+  }
+  getFact(otherDate);
+});
+
+/* select date for yesterday */
+$yesterday.addEventListener('click', function (event) {
+  event.preventDefault();
+  $saveNotify.className = 'hidden';
+  otherDate[1] -= 1;
+  if (otherDate[1] < 1) {
+    otherDate[0] -= 1;
+    if (otherDate[0] < 1) {
+      otherDate[0] = 12;
+    }
+    otherDate[1] = months[(otherDate[0] - 1)].days;
+  }
   getFact(otherDate);
 });
 
@@ -304,7 +336,6 @@ function loadFacts(monthNum) {
         $newListItem.appendChild($newDeleteContainer);
         $newDeleteContainer.appendChild($newDeleteButton);
       }
-
     }
   }
   $allDeleteButtons = document.querySelectorAll('li > div > button');

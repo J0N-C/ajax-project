@@ -33,7 +33,7 @@ body {
   width: 100%;
 }
 
-.column-20 {
+.column-50 {
   width: 50%;
   margin: auto;
 }
@@ -45,6 +45,10 @@ body {
 
 .spce-btwn {
   justify-content: space-between;
+}
+
+.spce-around {
+  justify-content: space-evenly;
 }
 
 .align-cent {
