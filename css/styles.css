@@ -39,7 +39,8 @@ ul {
 }
 
 p,
-li {
+li,
+.list-divider {
   font-family: 'Raleway', sans-serif;
 }
 
@@ -47,6 +48,12 @@ p {
   font-size: 150%;
   color: #292929;
   padding: 0.5rem 0;
+}
+
+li {
+  margin-top: 0.5rem;
+  padding: 0 0.5rem;
+  border-radius: 6px;
 }
 
 footer {
@@ -93,8 +100,9 @@ select {
 }
 
 .list-divider {
-  padding-top: 1rem;
-  font-size: 160%;
+  margin-top: 1rem;
+  padding: 1rem;
+  border-radius: 6px;
 }
 
 .modal {
@@ -133,6 +141,10 @@ select {
 .light-cream {
   background: #faf3f3;
   padding: 1rem 2rem;
+}
+
+.white {
+  background: #fff;
 }
 
 .red {
