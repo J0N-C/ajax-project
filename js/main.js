@@ -47,7 +47,7 @@ xhr.addEventListener('load', function () {
   getLimit = 0;
 });
 
-/* Original get setup, replace when backend is learned!!!
+/* Original get setup, replace proxy request in future!!!
 const factRequest = new XMLHttpRequest();
 factRequest.addEventListener('load', function () {
   factToday = JSON.parse(factRequest.response);
@@ -107,6 +107,10 @@ $tomorrow.addEventListener('click', function (event) {
     }
     otherDate[1] = 1;
   }
+  $dateLabel.textContent = 'VIEWING DATE';
+  if (otherDate[0] === today[0] && otherDate[1] === today[1]) {
+    $dateLabel.textContent = 'TODAY\'S DATE';
+  }
   getFact(otherDate);
 });
 
@@ -121,6 +125,10 @@ $yesterday.addEventListener('click', function (event) {
       otherDate[0] = 12;
     }
     otherDate[1] = months[(otherDate[0] - 1)].days;
+  }
+  $dateLabel.textContent = 'VIEWING DATE';
+  if (otherDate[0] === today[0] && otherDate[1] === today[1]) {
+    $dateLabel.textContent = 'TODAY\'S DATE';
   }
   getFact(otherDate);
 });
@@ -250,7 +258,7 @@ function dateToday() {
   return fullDate;
 }
 
-/*  CHANGE WHEN BACKEND IS LEARNED!!!
+/*  REPLACE PROXY REQUEST IN FUTURE!!!
 function getFact(date) {
   if ($dailyFact === null) return;
   const month = date[0];
@@ -311,15 +319,17 @@ function loadFacts(monthNum) {
   const dayCount = months[monthNum - 1].days;
   for (let i = 1; i <= dayCount; i++) {
     if (savedFacts[monthNum][i] === undefined) continue;
-    const newListDay = document.createElement('li');
-    newListDay.textContent = `${months[monthNum - 1].name} ${i}`;
-    newListDay.className = 'list-divider';
-    $factList.appendChild(newListDay);
+    const $newListDay = document.createElement('ul');
+    const $newListDayTitle = document.createElement('h3');
+    $newListDayTitle.textContent = `${months[monthNum - 1].name} ${i}`;
+    $newListDay.className = 'list-divider lightgray';
+    $newListDay.appendChild($newListDayTitle);
+    $factList.appendChild($newListDay);
     const years = Object.keys(savedFacts[monthNum][i]);
     for (let j = 0; j < years.length; j++) {
       for (let k = 0; k < savedFacts[monthNum][i][years[j]].length; k++) {
         const $newListItem = document.createElement('li');
-        $newListItem.className = 'flex spce-btwn wrap';
+        $newListItem.className = 'flex spce-btwn wrap white';
         $newListItem.setAttribute('data-day', i);
         $newListItem.setAttribute('data-year', years[j]);
         $newListItem.setAttribute('data-index', k);
@@ -327,7 +337,7 @@ function loadFacts(monthNum) {
         $newListText.className = 'column-75';
         $newListText.textContent = savedFacts[monthNum][i][years[j]];
         $newListItem.appendChild($newListText);
-        $factList.appendChild($newListItem);
+        $newListDay.appendChild($newListItem);
         const $newDeleteContainer = document.createElement('div');
         $newDeleteContainer.className = 'column-20 row just-cent';
         const $newDeleteButton = document.createElement('button');
