@@ -47,7 +47,7 @@ xhr.addEventListener('load', function () {
   getLimit = 0;
 });
 
-/* Original get setup, replace when backend is learned!!!
+/* Original get setup, replace proxy request in future!!!
 const factRequest = new XMLHttpRequest();
 factRequest.addEventListener('load', function () {
   factToday = JSON.parse(factRequest.response);
