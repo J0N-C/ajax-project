@@ -315,10 +315,10 @@ function switchViewCalendar() {
 function loadFacts(monthNum) {
   $factList.textContent = '';
   $calendarList.querySelector('h2').textContent = `SAVED FACTS FOR ${months[(monthNum - 1)].name}`;
-  if (savedFacts[monthNum] === undefined) {
+  if (!savedFacts[monthNum] || !savedFacts[monthNum][0]) {
     const $noFacts = document.createElement('p');
     $noFacts.textContent = 'No facts saved';
-    $factList.appendChild($noFacts);
+    return $factList.appendChild($noFacts);
   }
   const dayCount = months[monthNum - 1].days;
   for (let i = 1; i <= dayCount; i++) {
