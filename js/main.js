@@ -315,7 +315,11 @@ function switchViewCalendar() {
 function loadFacts(monthNum) {
   $factList.textContent = '';
   $calendarList.querySelector('h2').textContent = `SAVED FACTS FOR ${months[(monthNum - 1)].name}`;
-  if (savedFacts[monthNum] === undefined) return;
+  if (savedFacts[monthNum] === undefined) {
+    const $noFacts = document.createElement('p');
+    $noFacts.textContent = 'No facts saved';
+    $factList.appendChild($noFacts);
+  }
   const dayCount = months[monthNum - 1].days;
   for (let i = 1; i <= dayCount; i++) {
     if (savedFacts[monthNum][i] === undefined) continue;
