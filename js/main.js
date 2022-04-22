@@ -27,7 +27,7 @@ const $factList = document.querySelector('#fact-list');
 const $tomorrow = document.querySelector('#tomorrow');
 const $yesterday = document.querySelector('#yesterday');
 var $allDeleteButtons;
-const xhr = new XMLHttpRequest(); /* temporary proxy request */
+const xhr = new XMLHttpRequest();
 var getLimit = 0;
 var viewingHomePage = true;
 var today = dateToday();
@@ -36,7 +36,7 @@ var factToday;
 var deleteThis;
 getFact(today);
 
-/* temporary proxy listener */
+/* proxy listener */
 xhr.addEventListener('load', function () {
   factToday = xhr.response;
   if ($dailyFact.textContent === factToday.text && getLimit < 4) {
