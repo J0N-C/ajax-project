@@ -47,18 +47,6 @@ xhr.addEventListener('load', function () {
   getLimit = 0;
 });
 
-/* Original get setup, replace proxy request in future!!!
-const factRequest = new XMLHttpRequest();
-factRequest.addEventListener('load', function () {
-  factToday = JSON.parse(factRequest.response);
-  if ($dailyFact.textContent === factToday.text && getLimit < 4) {
-    getLimit++;
-    return getFact(otherDate);
-  }
-  $dailyFact.textContent = factToday.text;
-  getLimit = 0;
-}); */
-
 /* generate new fact */
 $getNewFact.addEventListener('click', function () {
   $saveNotify.className = 'hidden';
@@ -257,16 +245,6 @@ function dateToday() {
   fullDate.push(today.getDate());
   return fullDate;
 }
-
-/*  REPLACE PROXY REQUEST IN FUTURE!!!
-function getFact(date) {
-  if ($dailyFact === null) return;
-  const month = date[0];
-  const day = date[1];
-  $currentDate.textContent = `${months[month - 1].name} ${day}`;
-  factRequest.open('GET', `http://numbersapi.com/${month}/${day}/date?json`);
-  factRequest.send();
-} */
 
 function getFact(date) {
   if ($dailyFact === null) return;
