@@ -10,7 +10,7 @@ retrievable information to be displayed to a user again later. This also was a f
 creating a responsive webpage using only native html, css, and javascript.
 
 ## Link to live deployment:
-https://j0n-c.github.io/ajax-project/
+https://j0n-c.github.io/previously-today/
 
 ## Technologies Used:
 * JavaScript
