@@ -27,10 +27,10 @@ https://j0n-c.github.io/ajax-project/
 
 ## Preview:
 ### Usage Demo:
-![demo gif](https://github.com/J0N-C/previously-today/images/previously-today-demo.gif "demo gif")
+![demo gif](https://github.com/J0N-C/previously-today/blob/master/images/previously-today-demo.gif "demo gif")
 
 ### Responsive Design Demo:
-![responsive design gif](https://github.com/J0N-C/previously-today/images/responsive-previously-today.gif "responsive design gif")
+![responsive design gif](https://github.com/J0N-C/previously-today/blob/master/images/responsive-previously-today.gif "responsive design gif")
 
 ## System Requirements:
 Any web browser that supports HTML5, CSS3, and ECMAScript 2015 (ES6)
