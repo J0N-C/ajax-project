@@ -3,7 +3,7 @@
 A web application for people who want to know what historical trivia occurred today
 
 This project was begun as a way to learn how to utilize a public API online and present it as
-useful information to a user. Information was taken from numbersapi.com, and experimenting
+useful information to a user. API data was from [numbersapi.com](http://numbersapi.com/), and experimenting
 with information organized by dates felt like a good way to understand data organization
 within javascript, both in terms of how to parse it from the api and how to save it as easily
 retrievable information to be displayed to a user again later. This also was a first attempt at
