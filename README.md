@@ -20,10 +20,10 @@ https://j0n-c.github.io/previously-today/
 ## Features implemented:
 * User can view the trivia of the day, taken from numbersapi.com
 * User can request a new piece of trivia for the same day
-* User can view the trivia for the next or previous day
 * User can select a specific month and day they want to view
-* User can save the piece of trivia that they are currently viewing
+* User can save the piece of trivia that they are currently viewing, saved to local browser storage
 * User can change their view from trivia to a list of their saved trivia
+* User can view the trivia for the next or previous day
 
 ## Preview:
 ### Usage Demo:
