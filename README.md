@@ -14,8 +14,11 @@ https://j0n-c.github.io/previously-today/
 
 ## Technologies Used:
 * JavaScript
+  * AJAX
+  * XMLHttpRequest
 * CSS3
 * HTML5
+* [numbersapi.com](http://numbersapi.com/)
 
 ## Features implemented:
 * User can view the trivia of the day, taken from numbersapi.com
